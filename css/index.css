@@ -98,8 +98,8 @@ h5 {
 .banner {
   position: relative;
   margin-bottom: 18px;
-  overflow-x: hidden;
-  padding-bottom: clamp(3rem, 1.499rem + 6.11vw, 7rem);
+  overflow: hidden;
+  padding-bottom: 55px;
 }
 .banner .banner-txt {
   position: absolute;
@@ -125,14 +125,17 @@ h5 {
 .banner .machine1 {
   position: absolute;
   right: 0;
-  top: clamp(3.438rem, 0.833rem + 10.6vw, 10.375rem);
-  width: clamp(15.125rem, 0.298rem + 60.36vw, 54.625rem);
+  top: 42px;
+  width: 61vw;
+}
+.banner .machine1 img {
+  height: 100%;
 }
 .banner .machine2 {
   position: absolute;
   bottom: 20px;
   left: clamp(2.5rem, 0.764rem + 7.07vw, 7.125rem);
-  width: clamp(3.875rem, 2.092rem + 7.26vw, 8.625rem);
+  width: 15.7vw;
 }
 .banner .machine2 img {
   transform: rotate(-6.017deg);
@@ -594,16 +597,18 @@ h5 {
 }
 @media screen and (min-width: 768px) {
   .banner {
-    margin-bottom: 38px;
+    margin-bottom: 7vw;
+    padding-bottom: 6.25rem;
   }
   .banner .banner-txt {
     top: 100px;
   }
   .banner .machine1 {
-    width: clamp(27.438rem, 17.232rem + 41.55vw, 54.625rem);
+    top: 100px;
+    width: 57vw;
   }
   .banner .machine2 {
-    width: clamp(8.625rem, 7.921rem + 2.87vw, 10.5rem);
+    width: 23vw;
   }
   .com-title img {
     width: 478px;
@@ -667,6 +672,14 @@ h5 {
   .banner .banner-txt {
     top: 134px;
   }
+  .banner .machine1 {
+    width: 54vw;
+    top: 130px;
+  }
+  .banner .machine2 {
+    width: 22vw;
+    bottom: 20px;
+  }
   .about {
     margin-bottom: 0px;
   }
@@ -687,11 +700,15 @@ h5 {
   }
 }
 @media screen and (min-width: 1280px) {
-  .banner {
-    margin-bottom: 35px;
-  }
   .banner .banner-txt {
     top: 215px;
+  }
+  .banner .machine1 {
+    width: 52.4vw;
+    top: 145px;
+  }
+  .banner .machine2 {
+    bottom: -42px;
   }
   .about {
     margin-bottom: 0px;
@@ -711,9 +728,6 @@ h5 {
   }
 }
 @media screen and (min-width: 1440px) {
-  .banner {
-    margin-bottom: 28.5px;
-  }
   .about {
     margin-bottom: 56px;
   }

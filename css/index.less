@@ -116,8 +116,8 @@ h5 {
 .banner {
   position: relative;
   margin-bottom: 18px;
-  overflow-x: hidden;
-  padding-bottom: clamp(3rem, 1.499rem + 6.11vw, 7rem)  ;
+  overflow: hidden;
+  padding-bottom: 55px;
   .banner-txt {
     position: absolute;
     top: 47px;
@@ -144,18 +144,23 @@ h5 {
     width: 100%;
   }
 
-  .machine1{
+
+  .machine1 {
     position: absolute;
     right: 0;
-    top: clamp(3.438rem, 0.833rem + 10.6vw, 10.375rem);
-    width: clamp(15.125rem, 0.298rem + 60.36vw, 54.625rem);
+    top: 42px;
+    width: 61vw;
+    img{
+      height: 100%;
+    }
   }
-  .machine2{
+
+  .machine2 {
     position: absolute;
     bottom: 20px;
     left: clamp(2.5rem, 0.764rem + 7.07vw, 7.125rem);
-    width: clamp(3.875rem, 2.092rem + 7.26vw, 8.625rem);
-    img{
+    width: 15.7vw;
+    img {
       transform: rotate(-6.017deg);
     }
   }
@@ -312,7 +317,8 @@ h5 {
                 position: relative;
                 overflow: hidden;
                 margin-bottom: 14px;
-                img{
+
+                img {
                   width: 100%;
                   transition: transform 0.8s ease;
                 }
@@ -721,16 +727,19 @@ h5 {
 
 @media screen and (min-width: 768px) {
   .banner {
-    margin-bottom: 38px;
-
+    margin-bottom: 7vw;
+    padding-bottom: 6.25rem;
     .banner-txt {
       top: 100px;
     }
-    .machine1{
-      width: clamp(27.438rem, 17.232rem + 41.55vw, 54.625rem);
+
+    .machine1 {
+      top: 100px;
+      width: 57vw;
     }
-    .machine2{
-      width: clamp(8.625rem, 7.921rem + 2.87vw, 10.5rem);
+
+    .machine2 {
+      width: 23vw;
     }
   }
 
@@ -824,6 +833,14 @@ h5 {
     .banner-txt {
       top: 134px;
     }
+    .machine1{
+      width: 54vw;
+      top: 130px;
+    }
+    .machine2{
+      width: 22vw;
+      bottom: 20px;
+    }
   }
 
   .about {
@@ -858,10 +875,16 @@ h5 {
 
 @media screen and (min-width: 1280px) {
   .banner {
-    margin-bottom: 35px;
 
     .banner-txt {
       top: 215px;
+    }
+    .machine1{
+      width: 52.4vw;
+      top: 145px;
+    }
+    .machine2{
+      bottom: -42px;
     }
   }
 
@@ -894,10 +917,6 @@ h5 {
 }
 
 @media screen and (min-width: 1440px) {
-  .banner {
-    margin-bottom: 28.5px;
-  }
-
   .about {
     margin-bottom: 56px;
 
@@ -915,6 +934,7 @@ h5 {
       right: 60px;
     }
   }
+
   .p-recruit_business {
     .p-recruit_business__bg__swiper {
       height: 962px;
