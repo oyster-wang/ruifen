@@ -7018,285 +7018,6 @@
       });
     }
   };
-
-  // src/js/lib/Validation.js
-  var Validation = class {
-    constructor() {
-      this.invalid = true;
-      jQuery(($) => {
-        this.$form = $(".wpcf7-form");
-        $.validator.addMethod(
-          "furigana",
-          function(value, element) {
-            return this.optional(element) || /^[\u3040-\u309F\u30A0-\u30FFｧ-ﾝﾞﾟ]*$/.test(value);
-          },
-          "\u3072\u3089\u304C\u306A\u3082\u3057\u304F\u306F\u30AB\u30BF\u30AB\u30CA\u3067\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044"
-        );
-        $.validator.addMethod(
-          "phone",
-          function(value, element) {
-            if (value.includes("-")) {
-              return this.optional(element) || /^\d{3}-\d{4}-\d{4}$|^\d{4}-\d{2}-\d{4}$/.test(value);
-            } else {
-              return this.optional(element) || /^\d{10}$|^\d{11}$/.test(value);
-            }
-          },
-          "\u96FB\u8A71\u756A\u53F7\u306E\u5F62\u5F0F\u3067\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044"
-        );
-        this.$form.validate({
-          rules: {
-            your_company: { required: true },
-            your_zip: { required: true },
-            your_address: { required: true },
-            your_last_name: { required: true },
-            your_first_name: { required: true },
-            your_last_name_kana: { required: true, furigana: true },
-            your_first_name_kana: { required: true, furigana: true },
-            your_email: { required: true, email: true },
-            your_email_confirm: { required: true, email: true, equalTo: "[name=your_email]" },
-            your_tel: { required: true, phone: true },
-            your_tel_any: { phone: true },
-            your_message: { required: true },
-            your_age: { required: true },
-            "your_job[]": { required: true },
-            your_file: { required: true }
-          },
-          messages: {
-            your_company: {
-              required: "\u5165\u529B\u5FC5\u9808\u9805\u76EE\u3067\u3059"
-            },
-            your_zip: {
-              required: "\u5165\u529B\u5FC5\u9808\u9805\u76EE\u3067\u3059"
-            },
-            your_address: {
-              required: "\u5165\u529B\u5FC5\u9808\u9805\u76EE\u3067\u3059"
-            },
-            your_last_name: {
-              required: "\u5165\u529B\u5FC5\u9808\u9805\u76EE\u3067\u3059"
-            },
-            your_first_name: {
-              required: "\u5165\u529B\u5FC5\u9808\u9805\u76EE\u3067\u3059"
-            },
-            your_last_name_kana: {
-              required: "\u5165\u529B\u5FC5\u9808\u9805\u76EE\u3067\u3059"
-            },
-            your_first_name_kana: {
-              required: "\u5165\u529B\u5FC5\u9808\u9805\u76EE\u3067\u3059"
-            },
-            your_email: {
-              required: "\u30E1\u30FC\u30EB\u30A2\u30C9\u30EC\u30B9\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044",
-              email: "\u6709\u52B9\u306A\u30E1\u30FC\u30EB\u30A2\u30C9\u30EC\u30B9\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044"
-            },
-            your_email_confirm: {
-              required: "\u30E1\u30FC\u30EB\u30A2\u30C9\u30EC\u30B9\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044",
-              email: "\u6709\u52B9\u306A\u30E1\u30FC\u30EB\u30A2\u30C9\u30EC\u30B9\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044",
-              equalTo: "\u30E1\u30FC\u30EB\u30A2\u30C9\u30EC\u30B9\u304C\u9055\u3044\u307E\u3059"
-            },
-            your_tel: {
-              required: "\u5165\u529B\u5FC5\u9808\u9805\u76EE\u3067\u3059"
-            },
-            your_message: {
-              required: "\u5165\u529B\u5FC5\u9808\u9805\u76EE\u3067\u3059"
-            },
-            your_age: {
-              required: "\u5165\u529B\u5FC5\u9808\u9805\u76EE\u3067\u3059"
-            },
-            "your_job[]": {
-              required: "\u5165\u529B\u5FC5\u9808\u9805\u76EE\u3067\u3059"
-            },
-            your_file: {
-              required: "\u5165\u529B\u5FC5\u9808\u9805\u76EE\u3067\u3059"
-            }
-          },
-          errorElement: "div",
-          errorPlacement: function($error, $element) {
-            if ($element.closest(".js-error_wrap").hasClass("js-error_wrap")) {
-              $element.closest(".c-form__body").append($error);
-            } else {
-              const isRadio = $element.attr("type") === "radio";
-              const $parent = isRadio ? $element.parent().parent().parent().parent() : $element.parent();
-              const $target = $parent.find(`#${$error.attr("id")}`);
-              if ($target.length) {
-                $target.remove();
-                $parent.append($error);
-              } else {
-                if (isRadio) {
-                  $parent.append($error);
-                } else {
-                  $error.insertAfter($element);
-                }
-              }
-            }
-          }
-        });
-        this.$formButton = this.$form.find(".wpcf7-submit");
-        this.$formButton.on("click", (e2) => {
-          if (this.invalid) {
-            e2.preventDefault();
-            if (this.$form.valid()) {
-              if (!window.confirm("\u672C\u5F53\u306B\u9001\u4FE1\u3057\u307E\u3059\u304B\uFF1F")) {
-                return;
-              }
-              this.invalid = false;
-              this.$formButton.click();
-            } else {
-              alert("\u5165\u529B\u5185\u5BB9\u306B\u4E0D\u5099\u304C\u3042\u308A\u307E\u3059");
-              $("html, body").animate(
-                {
-                  scrollTop: $(".c-form__contents").offset().top
-                },
-                500
-              );
-            }
-          }
-        });
-        this.$form.on("wpcf7mailsent", () => {
-          const pathname = location.pathname;
-          if (pathname.includes("/en/contact/")) {
-            location.href = "/en/contact/complete/";
-          } else if (pathname.includes("contact")) {
-            location.href = "/contact/complete/";
-          }
-        });
-      });
-    }
-  };
-
-  // src/js/lib/FormFile.js
-  var FormFile = class {
-    constructor() {
-      const sizeLimit = 10485760;
-      const files = document.querySelectorAll(".js-file");
-      if (!files)
-        return;
-      files.forEach((file) => {
-        const input = file.querySelector("input");
-        const text = file.querySelector(".js-file-text");
-        if (input === null || text === null)
-          return;
-        const currentText = text.innerHTML;
-        input.addEventListener("change", (e2) => {
-          const fileList = input.files;
-          console.log(input.value, fileList, typeof input.value);
-          if (input.value === "") {
-            text.innerText = currentText;
-            file.classList.remove("is-hidden");
-            return;
-          }
-          for (let i = 0; i < fileList.length; i++) {
-            if (fileList[i].size > sizeLimit) {
-              alert("\u30D5\u30A1\u30A4\u30EB\u30B5\u30A4\u30BA\u306F10MB\u4EE5\u4E0B\u306B\u3057\u3066\u304F\u3060\u3055\u3044");
-              input.value = "";
-              text.innerText = currentText;
-              file.classList.remove("is-hidden");
-              return;
-            } else {
-              text.innerText = fileList[i].name;
-              file.classList.add("is-hidden");
-            }
-          }
-        });
-        const fileDeltion = file.querySelector(".js-delete");
-        if (fileDeltion !== null) {
-          fileDeltion.addEventListener("click", function() {
-            text.innerText = currentText;
-            input.value = "";
-            file.classList.remove("is-hidden");
-          });
-        }
-      });
-    }
-  };
-
-  // src/js/lib/Accordion.js
-  var Accordion = class {
-    constructor() {
-      const accordions = document.querySelectorAll(".js-accordion");
-      if (accordions.length === 0)
-        return;
-      const duration = 0.4;
-      accordions.forEach((accordion) => {
-        const trigger = accordion.querySelector(".js-accordion-trigger");
-        const content = accordion.querySelector(".js-accordion-content");
-        const wrapper = document.createElement("div");
-        wrapper.classList.add("js-accordion-wrapper");
-        content.parentNode.insertBefore(wrapper, content);
-        wrapper.appendChild(content);
-        if (accordion.classList.contains("is-open")) {
-          this.animation(wrapper, 0, "open");
-        }
-        trigger.addEventListener("click", () => {
-          this.toggleAccordion(accordion, wrapper, duration);
-        });
-        const closeButton = accordion.querySelector(".js-accordion-close");
-        if (closeButton) {
-          closeButton.addEventListener("click", () => {
-            this.closeAccordion(accordion, wrapper, duration);
-          });
-        }
-      });
-    }
-    toggleAccordion(accordion, wrapper, duration) {
-      accordion.classList.toggle("is-open");
-      if (accordion.classList.contains("is-open")) {
-        accordion.classList.remove("is-close");
-        this.animation(wrapper, duration, "open");
-      } else {
-        accordion.classList.add("is-close");
-        this.animation(wrapper, duration, "close");
-      }
-    }
-    closeAccordion(accordion, wrapper, duration) {
-      if (accordion.classList.contains("is-open")) {
-        accordion.classList.remove("is-open");
-        accordion.classList.add("is-close");
-        this.animation(wrapper, duration, "close");
-      }
-    }
-    animation(el, duration, type) {
-      if (type === "open") {
-        gsapWithCSS.to(el, { height: "auto", duration });
-      } else {
-        gsapWithCSS.to(el, { height: 0, duration });
-      }
-    }
-  };
-
-  // src/js/lib/MegaMenu.js
-  var MegaMenu = class {
-    constructor() {
-      this.megaTrgs = [...document.getElementsByClassName("js-mega_trg")];
-      this.header = document.querySelector("header");
-      const page = document.getElementById("page");
-      if (this.megaTrgs.length == 0)
-        return;
-      this.megaTrgs.forEach((megaTrg) => {
-        const megaContent = megaTrg.getElementsByClassName("js-mega_content");
-        megaTrg.addEventListener("mouseenter", () => {
-          megaTrg.classList.add("is-act");
-          this.header.classList.add("is-act");
-          page.classList.add("is-act-mega");
-          this.animation(megaContent, "visible");
-        });
-        megaTrg.addEventListener("mouseleave", () => {
-          megaTrg.classList.remove("is-act");
-          this.header.classList.remove("is-act");
-          page.classList.remove("is-act-mega");
-          this.animation(megaContent, "hidden");
-        });
-      });
-    }
-    animation(el, type) {
-      if (type == "visible") {
-        el[0].classList.add("is-visible");
-        gsapWithCSS.to(el, 0.3, { autoAlpha: 1, display: "block" });
-      } else {
-        el[0].classList.remove("is-visible");
-        gsapWithCSS.to(el, 0.3, { autoAlpha: 0, display: "none" });
-      }
-    }
-  };
-
   // node_modules/swiper/shared/ssr-window.esm.mjs
   function isObject(obj) {
     return obj !== null && typeof obj === "object" && "constructor" in obj && obj.constructor === Object;
@@ -67070,10 +66791,10 @@ void main() {
         direction: "vertical",
         loop: true,
         speed: 6e3,
-        slidesPerView: 4,
+        slidesPerView: 3,
         allowTouchMove: false,
         autoplay: {
-          delay: 0
+          delay: 2
         },
         breakpoints: {
           678: {
@@ -67536,49 +67257,46 @@ void main() {
   };
 
   // src/js/index.js
-  new Svg();
-  new TelGrant();
-  new Smooth();
+  // new Svg();
+  // new TelGrant();
+  // new Smooth();
   new Drawer();
   new ScrollStatus();
   new ScrollAnimation();
-  new Validation();
-  new FormFile();
-  new Accordion();
-  new MegaMenu();
-  new IndexKvSlider();
-  new HoverTab();
-  new TechnologySlider();
+
+  // new IndexKvSlider();
+  // new HoverTab();
+  // new TechnologySlider();
   new EndlessSlider();
   new MomentumScroll();
-  new Stalker();
-  new Loading();
-  new HeaderSize();
-  new IntersectionSidebar("js-history-intersection", "js-history-intersection-sidebar", "js-history-intersection-section");
-  new IntersectionSidebar("js-faq-intersection", "js-faq-intersection-sidebar", "js-faq-intersection-section");
-  new IntersectionSidebar("js-factory-intersection", "js-factory-intersection-sidebar", "js-factory-intersection-section");
-  new IntersectionSidebar("js-feature-intersection", "js-feature-intersection-sidebar", "js-feature-intersection-section");
-  new IntersectionSidebar("js-product-intersection", "js-product-intersection-sidebar", "js-product-intersection-section");
+  // new Stalker();
+  // new Loading();
+  // new HeaderSize();
+  // new IntersectionSidebar("js-history-intersection", "js-history-intersection-sidebar", "js-history-intersection-section");
+  // new IntersectionSidebar("js-faq-intersection", "js-faq-intersection-sidebar", "js-faq-intersection-section");
+  // new IntersectionSidebar("js-factory-intersection", "js-factory-intersection-sidebar", "js-factory-intersection-section");
+  // new IntersectionSidebar("js-feature-intersection", "js-feature-intersection-sidebar", "js-feature-intersection-section");
+  // new IntersectionSidebar("js-product-intersection", "js-product-intersection-sidebar", "js-product-intersection-section");
   new Graph();
   new Process(".c-process__sidebar", ".c-process__content .js-process__section");
-  new ShineEarth();
-  var canvas = document.querySelector("#js-footer-bg canvas");
-  if (canvas) {
-    new MetallicEarth(canvas);
-  }
+  // new ShineEarth();
+  // var canvas = document.querySelector("#js-footer-bg canvas");
+  // if (canvas) {
+  //   new MetallicEarth(canvas);
+  // }
   new IndexBusinessBgSlider();
   new InterviewSlider();
   new IndexFactoriesSlider();
-  new IndexSupportSlider();
-  new IntersectionSidebar("js-recruit-interview-intersection", "js-recruit-interview-intersection-sidebar", "js-recruit-interview-intersection-section");
-  new IntersectionSidebar("js-recruit-information-intersection", "js-recruit-information-intersection-sidebar", "js-recruit-information-intersection-section");
-  new LoopText();
-  new BusinessQuiz();
-  new IndexKvObj();
-  new IndexKv();
-  new CtaObj();
-  new RecruitDrawer();
-  new IntroScroll();
+  // new IndexSupportSlider();
+  // new IntersectionSidebar("js-recruit-interview-intersection", "js-recruit-interview-intersection-sidebar", "js-recruit-interview-intersection-section");
+  // new IntersectionSidebar("js-recruit-information-intersection", "js-recruit-information-intersection-sidebar", "js-recruit-information-intersection-section");
+  // new LoopText();
+  // new BusinessQuiz();
+  // new IndexKvObj();
+  // new IndexKv();
+  // new CtaObj();
+  // new RecruitDrawer();
+  // new IntroScroll();
 })();
 /*! Bundled license information:
 
